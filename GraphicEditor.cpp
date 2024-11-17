@@ -1,121 +1,121 @@
-//GraphicEditor.cpp
+// GraphicEditor.cpp
 #include "GraphicEditor.h"
 #include <iostream>
 using namespace std;
 
-// GraphicEditor »ý¼ºÀÚ
-// ¿¬°á ¸®½ºÆ®ÀÇ ½ÃÀÛ°ú ³¡À» ³ªÅ¸³»´Â Æ÷ÀÎÅÍ¸¦ ÃÊ±âÈ­
+// GraphicEditor ìƒì„±ìž
+// ì—°ê²° ë¦¬ìŠ¤íŠ¸ì˜ ì‹œìž‘ê³¼ ëì„ ë‚˜íƒ€ë‚´ëŠ” í¬ì¸í„°ë¥¼ ì´ˆê¸°í™”
 GraphicEditor::GraphicEditor() {
     pStart = pLast = nullptr;
 }
 
-// GraphicEditor ¼Ò¸êÀÚ
-// ¿¬°á ¸®½ºÆ®¸¦ ¼øÈ¸ÇÏ¸ç µ¿ÀûÀ¸·Î »ý¼ºµÈ µµÇü °´Ã¼µéÀ» »èÁ¦
+// GraphicEditor ì†Œë©¸ìž
+// ì—°ê²° ë¦¬ìŠ¤íŠ¸ë¥¼ ìˆœíšŒí•˜ë©° ë™ì ìœ¼ë¡œ ìƒì„±ëœ ë„í˜• ê°ì²´ë“¤ì„ ì‚­ì œ
 GraphicEditor::~GraphicEditor() {
-    Shape* current = pStart; // ¸®½ºÆ®ÀÇ ½ÃÀÛºÎÅÍ Å½»ö
-    while (current != nullptr) { // ¸®½ºÆ® ³¡±îÁö ¹Ýº¹
-        Shape* next = current->getNext(); // ´ÙÀ½ °´Ã¼¸¦ ÀúÀå
-        delete current; // ÇöÀç °´Ã¼ »èÁ¦
-        current = next; // ´ÙÀ½ °´Ã¼·Î ÀÌµ¿
+    Shape* current = pStart; // ë¦¬ìŠ¤íŠ¸ì˜ ì‹œìž‘ë¶€í„° íƒìƒ‰
+    while (current != nullptr) { // ë¦¬ìŠ¤íŠ¸ ëê¹Œì§€ ë°˜ë³µ
+        Shape* next = current->getNext(); // ë‹¤ìŒ ê°ì²´ë¥¼ ì €ìž¥
+        delete current; // í˜„ìž¬ ê°ì²´ ì‚­ì œ
+        current = next; // ë‹¤ìŒ ê°ì²´ë¡œ ì´ë™
     }
 }
 
-// µµÇü »ðÀÔ ¸Þ¼­µå
+// ë„í˜• ì‚½ìž… ë©”ì„œë“œ
 void GraphicEditor::insertItem(int type) {
-    Shape* p = nullptr; // »õ·Î »ý¼ºÇÒ µµÇü °´Ã¼¸¦ °¡¸®Å³ Æ÷ÀÎÅÍ ÃÊ±âÈ­
+    Shape* p = nullptr; // ìƒˆë¡œ ìƒì„±í•  ë„í˜• ê°ì²´ë¥¼ ê°€ë¦¬í‚¬ í¬ì¸í„° ì´ˆê¸°í™”
 
-    // ÀÔ·ÂµÈ Å¸ÀÔ¿¡ µû¶ó µµÇü °´Ã¼¸¦ µ¿ÀûÀ¸·Î »ý¼º
+    // ìž…ë ¥ëœ íƒ€ìž…ì— ë”°ë¼ ë„í˜• ê°ì²´ë¥¼ ë™ì ìœ¼ë¡œ ìƒì„±
     switch (type) {
     case 1:
-        p = new Line(); // ¼± °´Ã¼ »ý¼º
+        p = new Line(); // ì„  ê°ì²´ ìƒì„±
         break;
     case 2:
-        p = new Circle(); // ¿ø °´Ã¼ »ý¼º
+        p = new Circle(); // ì› ê°ì²´ ìƒì„±
         break;
     case 3:
-        p = new Rectangle(); // »ç°¢Çü °´Ã¼ »ý¼º
+        p = new Rectangle(); // ì‚¬ê°í˜• ê°ì²´ ìƒì„±
         break;
     default:
-        break; // Àß¸øµÈ ÀÔ·ÂÀÏ °æ¿ì ¾Æ¹« ÀÛ¾÷µµ ÇÏÁö ¾ÊÀ½
+        break; // ìž˜ëª»ëœ ìž…ë ¥ì¼ ê²½ìš° ì•„ë¬´ ìž‘ì—…ë„ í•˜ì§€ ì•ŠìŒ
     }
 
-    // ¸®½ºÆ®°¡ ºñ¾î ÀÖ´Â °æ¿ì
+    // ë¦¬ìŠ¤íŠ¸ê°€ ë¹„ì–´ ìžˆëŠ” ê²½ìš°
     if (pStart == nullptr) {
-        pStart = p; // Ã¹ ¹øÂ° µµÇüÀ¸·Î ¼³Á¤
-        pLast = p;  // ¸¶Áö¸· µµÇüµµ µ¿ÀÏ
+        pStart = p; // ì²« ë²ˆì§¸ ë„í˜•ìœ¼ë¡œ ì„¤ì •
+        pLast = p;  // ë§ˆì§€ë§‰ ë„í˜•ë„ ë™ì¼
         return;
     }
 
-    // ¸®½ºÆ®°¡ ºñ¾î ÀÖÁö ¾ÊÀº °æ¿ì
-    pLast->add(p);            // ÇöÀç ¸¶Áö¸· µµÇüÀÇ next¿¡ »õ µµÇü Ãß°¡
-    pLast = pLast->getNext(); // pLast¸¦ »õ·Î Ãß°¡µÈ µµÇüÀ¸·Î °»½Å
+    // ë¦¬ìŠ¤íŠ¸ê°€ ë¹„ì–´ ìžˆì§€ ì•Šì€ ê²½ìš°
+    pLast->add(p);            // í˜„ìž¬ ë§ˆì§€ë§‰ ë„í˜•ì˜ nextì— ìƒˆ ë„í˜• ì¶”ê°€
+    pLast = pLast->getNext(); // pLastë¥¼ ìƒˆë¡œ ì¶”ê°€ëœ ë„í˜•ìœ¼ë¡œ ê°±ì‹ 
 }
 
-// µµÇü »èÁ¦ ¸Þ¼­µå
+// ë„í˜• ì‚­ì œ ë©”ì„œë“œ
 void GraphicEditor::deleteItem(int index) {
-    // ¸®½ºÆ®°¡ ºñ¾î ÀÖ´Â °æ¿ì
+    // ë¦¬ìŠ¤íŠ¸ê°€ ë¹„ì–´ ìžˆëŠ” ê²½ìš°
     if (pStart == nullptr) {
-        cout << "µµÇüÀÌ ¾ø½À´Ï´Ù!" << endl; // ¿À·ù ¸Þ½ÃÁö Ãâ·Â
+        cout << "ë„í˜•ì´ ì—†ìŠµë‹ˆë‹¤!" << endl; // ì˜¤ë¥˜ ë©”ì‹œì§€ ì¶œë ¥
         return;
     }
 
-    Shape* tmp = pStart; // »èÁ¦ÇÒ µµÇüÀ» Å½»öÇÏ±â À§ÇÑ Æ÷ÀÎÅÍ
-    Shape* pre = nullptr; // »èÁ¦ÇÒ µµÇüÀÇ ÀÌÀü µµÇüÀ» °¡¸®Å³ Æ÷ÀÎÅÍ
+    Shape* tmp = pStart; // ì‚­ì œí•  ë„í˜•ì„ íƒìƒ‰í•˜ê¸° ìœ„í•œ í¬ì¸í„°
+    Shape* pre = nullptr; // ì‚­ì œí•  ë„í˜•ì˜ ì´ì „ ë„í˜•ì„ ê°€ë¦¬í‚¬ í¬ì¸í„°
 
-    // Ã¹ ¹øÂ° µµÇü »èÁ¦ Ã³¸®
+    // ì²« ë²ˆì§¸ ë„í˜• ì‚­ì œ ì²˜ë¦¬
     if (index == 0) {
-        pStart = tmp->getNext(); // ½ÃÀÛ Æ÷ÀÎÅÍ¸¦ ´ÙÀ½ µµÇüÀ¸·Î ÀÌµ¿
-        delete tmp;              // Ã¹ ¹øÂ° µµÇü »èÁ¦
+        pStart = tmp->getNext(); // ì‹œìž‘ í¬ì¸í„°ë¥¼ ë‹¤ìŒ ë„í˜•ìœ¼ë¡œ ì´ë™
+        delete tmp;              // ì²« ë²ˆì§¸ ë„í˜• ì‚­ì œ
         return;
     }
 
-    // ÀÔ·ÂµÈ ÀÎµ¦½º±îÁö Å½»ö
+    // ìž…ë ¥ëœ ì¸ë±ìŠ¤ê¹Œì§€ íƒìƒ‰
     for (int i = 0; i < index; i++) {
-        pre = tmp;              // ÇöÀç µµÇüÀ» ÀÌÀü µµÇüÀ¸·Î ¼³Á¤
-        tmp = tmp->getNext();   // ´ÙÀ½ µµÇüÀ¸·Î ÀÌµ¿
-        if (tmp == nullptr) {   // ÀÎµ¦½º ¹üÀ§¸¦ ÃÊ°úÇÑ °æ¿ì
-            cout << "Àß¸øµÈ ÀÎµ¦½ºÀÔ´Ï´Ù!" << endl; // ¿À·ù ¸Þ½ÃÁö Ãâ·Â
+        pre = tmp;              // í˜„ìž¬ ë„í˜•ì„ ì´ì „ ë„í˜•ìœ¼ë¡œ ì„¤ì •
+        tmp = tmp->getNext();   // ë‹¤ìŒ ë„í˜•ìœ¼ë¡œ ì´ë™
+        if (tmp == nullptr) {   // ì¸ë±ìŠ¤ ë²”ìœ„ë¥¼ ì´ˆê³¼í•œ ê²½ìš°
+            cout << "ìž˜ëª»ëœ ì¸ë±ìŠ¤ìž…ë‹ˆë‹¤!" << endl; // ì˜¤ë¥˜ ë©”ì‹œì§€ ì¶œë ¥
             return;
         }
     }
 
-    // ¿¬°á ¸®½ºÆ®¸¦ Àç±¸¼ºÇÏ¿© »èÁ¦
-    pre->add(tmp->getNext()); // ÀÌÀü µµÇüÀÇ next¸¦ »èÁ¦ ´ë»óÀÇ next·Î ¿¬°á
-    delete tmp;               // »èÁ¦ ´ë»ó µµÇü »èÁ¦
+    // ì—°ê²° ë¦¬ìŠ¤íŠ¸ë¥¼ ìž¬êµ¬ì„±í•˜ì—¬ ì‚­ì œ
+    pre->add(tmp->getNext()); // ì´ì „ ë„í˜•ì˜ nextë¥¼ ì‚­ì œ ëŒ€ìƒì˜ nextë¡œ ì—°ê²°
+    delete tmp;               // ì‚­ì œ ëŒ€ìƒ ë„í˜• ì‚­ì œ
 }
 
-// µµÇü Ãâ·Â ¸Þ¼­µå
+// ë„í˜• ì¶œë ¥ ë©”ì„œë“œ
 void GraphicEditor::show() {
-    Shape* tmp = pStart; // ¸®½ºÆ®ÀÇ ½ÃÀÛºÎÅÍ Å½»ö
-    int i = 0;           // Ãâ·Â¿ë ÀÎµ¦½º
-    while (tmp != nullptr) { // ¸®½ºÆ® ³¡±îÁö ¹Ýº¹
-        cout << i++ << ": "; // ÇöÀç ÀÎµ¦½º Ãâ·Â
-        tmp->paint();        // ÇöÀç µµÇü Ãâ·Â
-        tmp = tmp->getNext(); // ´ÙÀ½ µµÇüÀ¸·Î ÀÌµ¿
+    Shape* tmp = pStart; // ë¦¬ìŠ¤íŠ¸ì˜ ì‹œìž‘ë¶€í„° íƒìƒ‰
+    int i = 0;           // ì¶œë ¥ìš© ì¸ë±ìŠ¤
+    while (tmp != nullptr) { // ë¦¬ìŠ¤íŠ¸ ëê¹Œì§€ ë°˜ë³µ
+        cout << i++ << ": "; // í˜„ìž¬ ì¸ë±ìŠ¤ ì¶œë ¥
+        tmp->paint();        // í˜„ìž¬ ë„í˜• ì¶œë ¥
+        tmp = tmp->getNext(); // ë‹¤ìŒ ë„í˜•ìœ¼ë¡œ ì´ë™
     }
 }
 
-// ÇÁ·Î±×·¥ ½ÇÇà ¸Þ¼­µå
+// í”„ë¡œê·¸ëž¨ ì‹¤í–‰ ë©”ì„œë“œ
 void GraphicEditor::run() {
-    cout << "±×·¡ÇÈ ¿¡µðÅÍÀÔ´Ï´Ù." << endl; // ÃÊ±â ¸Þ½ÃÁö Ãâ·Â
-    int menu, index, type; // ¸Þ´º, ÀÎµ¦½º, Å¸ÀÔ º¯¼ö ÃÊ±âÈ­
+    cout << "ê·¸ëž˜í”½ ì—ë””í„°ìž…ë‹ˆë‹¤." << endl; // ì´ˆê¸° ë©”ì‹œì§€ ì¶œë ¥
+    int menu, index, type; // ë©”ë‰´, ì¸ë±ìŠ¤, íƒ€ìž… ë³€ìˆ˜ ì´ˆê¸°í™”
 
-    // ¹«ÇÑ ¹Ýº¹ÇÏ¿© »ç¿ëÀÚ ÀÔ·Â Ã³¸®
+    // ë¬´í•œ ë°˜ë³µí•˜ì—¬ ì‚¬ìš©ìž ìž…ë ¥ ì²˜ë¦¬
     while (true) {
-        menu = UI::getMenu(); // ¸Þ´º ¼±ÅÃ ÀÔ·Â
+        menu = UI::getMenu(); // ë©”ë‰´ ì„ íƒ ìž…ë ¥
         switch (menu) {
-        case 1: // µµÇü »ðÀÔ
-            type = UI::getShapeTypeToInsert(); // »ðÀÔÇÒ µµÇü Å¸ÀÔ ÀÔ·Â
-            insertItem(type); // µµÇü »ðÀÔ Ã³¸®
+        case 1: // ë„í˜• ì‚½ìž…
+            type = UI::getShapeTypeToInsert(); // ì‚½ìž…í•  ë„í˜• íƒ€ìž… ìž…ë ¥
+            insertItem(type); // ë„í˜• ì‚½ìž… ì²˜ë¦¬
             break;
-        case 2: // µµÇü »èÁ¦
-            index = UI::getShapeIndexToDelete(); // »èÁ¦ÇÒ µµÇü ÀÎµ¦½º ÀÔ·Â
-            deleteItem(index); // µµÇü »èÁ¦ Ã³¸®
+        case 2: // ë„í˜• ì‚­ì œ
+            index = UI::getShapeIndexToDelete(); // ì‚­ì œí•  ë„í˜• ì¸ë±ìŠ¤ ìž…ë ¥
+            deleteItem(index); // ë„í˜• ì‚­ì œ ì²˜ë¦¬
             break;
-        case 3: // µµÇü Ãâ·Â
-            show(); // ÇöÀç ¸®½ºÆ®¿¡ ÀÖ´Â µµÇü Ãâ·Â
+        case 3: // ë„í˜• ì¶œë ¥
+            show(); // í˜„ìž¬ ë¦¬ìŠ¤íŠ¸ì— ìžˆëŠ” ë„í˜• ì¶œë ¥
             break;
-        default: // Á¾·á
+        default: // ì¢…ë£Œ
             return;
         }
     }
